@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+
+<img src="https://placehold.co/600x400" class="pagebuilder-mobile-hidden" height="200" width="400">
+<img src="https://placehold.co/600x300" class="pagebuilder-mobile-hidden">
+<img src="https://placehold.co/600x600" class="pagebuilder-mobile-hidden">
+<img src="https://placehold.co/600x100" class="pagebuilder-mobile-hidden">
+<img src="https://placehold.co/600x500" class="pagebuilder-mobile-hidden">
+<img src="https://placehold.co/600x700" class="pagebuilder-mobile-hidden">
+<img src="https://placehold.co/600x800" class="pagebuilder-mobile-hidden">
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+            // Select only the images with the specific classes
+            var images = document.querySelectorAll('img.pagebuilder-mobile-hidden, img.pagebuilder-mobile-only');
+            // Function to update image dimensions if not already set
+            function updateImageDimensions(img) {
+                var renderedWidth = img.clientWidth;
+                var renderedHeight = img.clientHeight;
+                // Update only if width or height attributes are missing or incorrect
+                if (!img.hasAttribute('width') || img.getAttribute('width') != renderedWidth) {
+                    img.setAttribute('width', renderedWidth);
+                }
+                if (!img.hasAttribute('height') || img.getAttribute('height') != renderedHeight) {
+                    img.setAttribute('height', renderedHeight);
+                }
+            }
+            // Attach load event listener to each selected image
+            images.forEach(function(img) {
+                img.addEventListener('load', function () {
+                    updateImageDimensions(img);
+                });
+                // Trigger the load event manually in case the image is cached
+                if (img.complete) {
+                    updateImageDimensions(img);
+                }
+            });
+            // Update dimensions on window resize
+            window.addEventListener('resize', function () {
+                images.forEach(function(img) {
+                    updateImageDimensions(img);
+                });
+            });
+        });
+</script>
+</body>
+</html>
